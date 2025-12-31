@@ -129,11 +129,9 @@ vsim -c testbench -do "run -all"
 1. Open **Intel Quartus Prime**
 2. Open the project file: `single-cycle-processor.qpf`
 3. Set `cpu_top.sv` as the top-level entity
-4. Configure pin assignments using the provided devkit files:
-   - Open Tcl Console (View → Utility Windows → Tcl Console)
-   - Navigate to devkits directory
-   - Run: `source platform_setup.tcl`
-   - Run: `setup_project`
+4. Configure pin assignments:
+   - Use the provided `cpu_top.qsf` settings file
+   - Or refer to `devkits/` directory for board-specific setup files
 5. Compile the design (Processing → Start Compilation)
 6. Program the FPGA (Tools → Programmer)
 
@@ -158,6 +156,7 @@ Example program (from `imem.txt`):
 0262A023    # sw x6, 32(x5)     ; Store to address (x5+32)
 0262A823    # sw x6, 48(x5)     ; Store to address (x5+48)
 FF1FF06F    # jal x0, -16       ; Jump back (infinite loop)
+FF200000    # Data value at address 128
 ```
 
 ## Test Program
@@ -165,8 +164,8 @@ FF1FF06F    # jal x0, -16       ; Jump back (infinite loop)
 The included testbench (`testbench.sv`) verifies the processor by:
 1. Loading a test program from `imem.txt`
 2. Executing instructions
-3. Checking if the value `25` is written to memory address `100`
-4. Reporting success or failure
+3. Checking if the value `25` (decimal) is written to memory address `100` (decimal)
+4. Reporting "Simulation succeeded" if the test passes, or "Simulation failed" otherwise
 
 ## Customization
 
